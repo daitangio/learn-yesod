@@ -60,5 +60,6 @@ eva00= Robot Eva00 "Rei" 14 True [ATF]
 
 eva01= Robot Eva01 "Sinji" 16 False [ATF,Regen,Bersek,CanActivate3rdImpact]
 
-main = print eva01 eva00
+main = print eva01
 -- main = print $ EvaConstr "eva01" 0.01
+
