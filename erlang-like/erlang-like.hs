@@ -1,4 +1,6 @@
--- cabal-dev install distributed-process distributed-process-simplelocalnet
+-- See http://www.haskell.org/haskellwiki/How_to_write_a_Haskell_program#Build_system
+-- for cabal sandbox setup
+-- For running launch ./cabal  run
 
 import Control.Concurrent (threadDelay)
 import Control.Monad (forever)
@@ -6,6 +8,8 @@ import Control.Distributed.Process
 import Control.Distributed.Process.Node
 import Network.Transport.TCP (createTransport, defaultTCPParameters)
 
+
+-- say inside Control.Distributed.Process.Internal.Primitives
 replyBack :: (ProcessId, String) -> Process ()
 replyBack (sender, msg) = send sender msg
 
@@ -26,12 +30,14 @@ main = do
     -- By default, this process simply loops through its mailbox and sends
     -- any received log message strings it finds to stderr.
 
-    say "send some messages!"
-    send echoPid "hello"
+    say "sending some messages!"
+    send echoPid "hello1"
+    send echoPid "hello2"
     self <- getSelfPid
     send echoPid (self, "hello")
 
     -- `expectTimeout` waits for a message or times out after "delay"
+    --say "Waiting..."
     m <- expectTimeout 1000000
     case m of
       -- Die immediately - throws a ProcessExitException with the given reason.
